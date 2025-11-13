@@ -23,6 +23,7 @@ terraform apply -auto-approve
 # Regresar al root
 # ------------------------------
 cd ..
+chmod 400 $ANSIBLE_DIR/DiegoKey.pem
 
 # ------------------------------
 # Ansible

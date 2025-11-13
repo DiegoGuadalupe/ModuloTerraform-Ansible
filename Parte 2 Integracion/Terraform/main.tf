@@ -116,11 +116,23 @@ resource "aws_security_group" "db_sg" {
   }
 }
 
-resource "aws_key_pair" "diego_key" {
-  key_name   = "DiegoKey" 
-  public_key = file("${path.module}/DiegoKey.pub") 
+# Generar par de claves RSA con Terraform
+resource "tls_private_key" "diego_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
+# Subir la clave pública a AWS
+resource "aws_key_pair" "diego_key" {
+  key_name   = "DiegoKey"
+  public_key = tls_private_key.diego_key.public_key_openssh
+}
+
+# Guardar la clave privada localmente
+resource "local_file" "private_pem" {
+  content  = tls_private_key.diego_key.private_key_pem
+  filename = "${path.module}/../Ansible/DiegoKey.pem"
+}
 
 # Webserver en subred pública
 resource "aws_instance" "web" {

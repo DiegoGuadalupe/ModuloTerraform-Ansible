@@ -12,6 +12,9 @@
 **/*_override.tf.json
 **/.terraform.lock.hcl
 
+# Claves privadas
+.pem
+
 # Sistemas operativos
 .DS_Store
 Thumbs.db
