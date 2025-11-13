@@ -32,6 +32,7 @@ Para ejecutar la segunda parte de integración, debemos movernos al directorio *
 
 - Ejecución del shell script master: `./deploy.sh`  
 
+Si nos falla la ejecución, debemos aplicar el siguiente comando `chmod 777 deploy.sh`.
 Así crearemos toda la estructura de AWS y los configuraremos por medio de Ansible.
 
 
