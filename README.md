@@ -32,7 +32,8 @@ Para ejecutar la segunda parte de integración, debemos movernos al directorio *
 
 - Ejecución del shell script master: `./deploy.sh`  
 
-Si nos falla la ejecución, debemos aplicar el siguiente comando `chmod 777 deploy.sh`.
+Si nos falla la ejecución por falta de permisos, debemos aplicar el siguiente comando `chmod 777 deploy.sh`.
+Asimismo, si al crear la estructura de AWS por medio de Terraform, vemos que no avanza, presionaremos Crtl + C, esperaremos a que acabe y lo volveremos a ejecutar. <br>
 Así crearemos toda la estructura de AWS y los configuraremos por medio de Ansible.
 
 
