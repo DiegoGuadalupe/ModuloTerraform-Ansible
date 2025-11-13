@@ -1,0 +1,17 @@
+---
+- name: Configurar el servidor de base de datos
+  hosts: role_db
+  become: true
+  roles:
+    - database
+
+- name: 2. Configuracion del Servidor Web (WordPress)
+  hosts: role_web
+  become: true
+  # Define la variable 'db_host' para el rol webserver
+  vars:
+    # Obtiene la IP (ansible_host) del primer host del grupo 'role_db'
+    db_host: "{{ hostvars[groups['role_db'][0]]['ansible_host'] }}"
+  roles:
+    - webserver
+...

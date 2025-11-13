@@ -1,0 +1,48 @@
+---
+- name: Instalar MySQL Server y paquetes necesarios
+  ansible.builtin.apt:
+    name:
+      - mysql-server
+      - python3-mysqldb
+    state: present
+    update_cache: yes
+
+- name: Asegurar que el servicio de MySQL esté arrancado y habilitado
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Esperar a que MySQL arranque y esté disponible
+  ansible.builtin.wait_for:
+    port: 3306 
+    host: 127.0.0.1
+    timeout: 60 
+    delay: 10
+    msg: "MySQL no arrancó o no escucha en el puerto 3306"
+
+- name: Crear la base de datos de WordPress
+  community.mysql.mysql_db:
+    login_user: root
+    name: wordpress
+    state: present
+    encoding: utf8
+
+- name: Crear el usuario de WordPress y asignarle la contraseña
+  community.mysql.mysql_user:
+    login_user: root
+    name: wp_user
+    password: wp_pass
+    host: '%'
+    priv: 'wordpress.*:ALL' 
+    state: present
+
+- name: Configurar MySQL para escuchar en todas las interfaces
+  ansible.builtin.lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf # La ruta puede variar en distintas versiones de MySQL/Ubuntu
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    state: present
+    backup: yes
+  notify: 
+    - Reiniciar MySQL
