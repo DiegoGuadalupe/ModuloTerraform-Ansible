@@ -13,7 +13,6 @@ Prerrequisitos:
 ### 📂 Ansible/
 - site.yml: Archivo principal que ejecuta los dos roles, correspondientes a la configuración de la base de datos y del webserver.
 - inventory_aws_ec2.yml: Archivo que contiene las llamadas a la api de aws de Ansible para obtener el inventario dinámico.
-- DiegoKey.pem: Contiene la clave ssh con la que se conectará nuestra máquina a las remotas en aws
 - ansible.cfg: Archivo de configuración de Ansible
 - roles/: Contiene los dos roles propuestos: El de db y el de web.
 - group_vars/: Definición de variables para cada grupo de máquinas en aws.
