@@ -13,7 +13,7 @@
 **/.terraform.lock.hcl
 
 # Claves privadas
-.pem
+*.pem
 
 # Sistemas operativos
 .DS_Store
